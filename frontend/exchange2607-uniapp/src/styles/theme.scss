@@ -1,0 +1,710 @@
+// 暗色质感金融风 V2 — Carbon Monochrome Luxe
+// 近黑单色底 + 极细描边 + 古董金点缀；文字层级保证暗底可读性
+
+// ============================================================
+// 主题变量：夜间模式（默认）+ 日间模式
+// 页面通过 @use '@/styles/theme.scss' as *; 使用
+// ============================================================
+
+// SCSS 变量映射到 CSS 变量，页面代码无需改动
+$page-bg: var(--page-bg);
+$surface-1: var(--surface-1);
+$surface-2: var(--surface-2);
+$surface-3: var(--surface-3);
+$highlight-edge: var(--highlight-edge);
+$border-subtle: var(--border-subtle);
+$border-strong: var(--border-strong);
+$text-primary: var(--text-primary);
+$text-highlight: var(--text-highlight);
+$text-secondary: var(--text-secondary);
+$text-muted: var(--text-muted);
+$gold: var(--gold);
+$gold-light: var(--gold-light);
+$gold-soft: var(--gold-soft);
+$silver: var(--silver);
+$silver-soft: var(--silver-soft);
+$success: var(--success);
+$success-soft: var(--success-soft);
+$danger: var(--danger);
+$danger-soft: var(--danger-soft);
+$warning: var(--warning);
+$warning-soft: var(--warning-soft);
+$icon-muted: var(--icon-muted);
+$icon-secondary: var(--icon-secondary);
+
+@mixin dark-card {
+  background: $surface-2;
+  border: 1rpx solid $border-subtle;
+  border-radius: 16rpx;
+  box-shadow: inset 0 1rpx 0 $highlight-edge;
+}
+
+@mixin amount-text {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+@mixin page-shell {
+  min-height: 100vh;
+  padding-bottom: 140rpx;
+  background: $page-bg;
+  color: $text-primary;
+}
+
+@mixin page-top-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 240rpx;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.028) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+// 暗金 segmented（outline 主题）：统一覆盖组件默认蓝块 + 浅色外框，呼应古董金风格
+@mixin gold-segmented {
+  :deep(.wd-segmented.wd-segmented--outline) {
+    background: $surface-1;
+    border-radius: 12rpx;
+  }
+
+  // 组件 ::before 画了一圈浅色外边框，改为暗描边
+  :deep(.wd-segmented.wd-segmented--outline::before) {
+    border-color: $border-subtle;
+  }
+
+  :deep(.wd-segmented.wd-segmented--outline .wd-segmented__item) {
+    color: $text-secondary;
+    font-size: 26rpx;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  :deep(.wd-segmented.wd-segmented--outline .wd-segmented__item.is-active) {
+    color: $gold-light;
+    background: $gold-soft;
+    font-weight: 500;
+    box-shadow: 0 2rpx 12rpx rgba(var(--gold-rgb), 0.12);
+  }
+
+  // 选项间分隔线改暗描边
+  :deep(.wd-segmented.wd-segmented--outline .wd-segmented__item + .wd-segmented__item) {
+    border-left-color: $border-subtle;
+  }
+}
+
+// 输入框聚焦高亮（金色描边）；需父容器加 .is-focused，避免依赖端上不支持的 :focus-within
+@mixin input-focus-gold {
+  &.is-focused {
+    :deep(.wd-input) {
+      border-color: $gold;
+      box-shadow: 0 0 0 3rpx rgba(var(--gold-rgb), 0.15);
+    }
+  }
+}
+
+@mixin label-caps {
+  font-size: 20rpx;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $text-secondary;
+}
+
+@mixin form-page {
+  @include page-shell;
+  position: relative;
+  overflow: hidden;
+}
+
+@mixin form-card {
+  @include dark-card;
+  position: relative;
+  z-index: 1;
+  margin: 24rpx 28rpx 0;
+  padding: 8rpx 28rpx 28rpx;
+}
+
+@mixin form-field {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid $border-subtle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+@mixin form-field-label {
+  display: block;
+  margin-bottom: 16rpx;
+  font-size: 24rpx;
+  color: $text-secondary;
+  letter-spacing: 0.04em;
+}
+
+@mixin form-input-deep {
+  :deep(.wd-input) {
+    --wot-input-padding: 22rpx 24rpx;
+    --wot-input-inner-height: 44rpx;
+    --wot-input-inner-font-size: 28rpx;
+    --wot-input-icon-font-size: 36rpx;
+    display: flex;
+    width: 100%;
+    background: $surface-3 !important;
+    border: 1rpx solid $border-subtle !important;
+    border-radius: 12rpx !important;
+    padding: 22rpx 24rpx !important;
+    min-height: 88rpx;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  :deep(.wd-input__inner) {
+    height: 44rpx !important;
+    min-height: 44rpx !important;
+    font-size: 28rpx !important;
+    line-height: 44rpx !important;
+  }
+
+  :deep(.wd-input__value),
+  :deep(input),
+  :deep(.uni-input-input) {
+    color: $text-primary !important;
+    font-size: 28rpx !important;
+  }
+
+  :deep(.wd-input__placeholder) {
+    color: $text-muted !important;
+    font-size: 28rpx !important;
+  }
+
+  :deep(.wd-input__icon),
+  :deep(.wd-input__clear) {
+    color: $text-muted !important;
+    font-size: 36rpx !important;
+  }
+}
+
+@mixin notice-banner {
+  position: relative;
+  z-index: 1;
+  margin: 24rpx 28rpx 0;
+  padding: 24rpx 28rpx;
+  border-radius: 12rpx;
+  background: rgba(201, 180, 138, 0.08);
+  border: 1rpx solid rgba(201, 180, 138, 0.18);
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: $text-secondary;
+}
+
+@mixin form-submit-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 24rpx 28rpx calc(24rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(3, 3, 4, 0) 0%, $page-bg 28%);
+}
+
+@mixin btn-gold-block {
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  letter-spacing: 0.08em;
+  color: $page-bg;
+  background: linear-gradient(135deg, #d1c4a8 0%, #b8a078 100%);
+  border: 1rpx solid rgba(209, 196, 168, 0.24);
+
+  &--disabled {
+    opacity: 0.42;
+    pointer-events: none;
+  }
+}
+
+@mixin btn-outline {
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  color: $silver;
+  border: 1rpx solid rgba(196, 198, 202, 0.22);
+  background: $silver-soft;
+}
+
+@mixin section-label {
+  @include label-caps;
+  padding: 24rpx 28rpx 8rpx;
+  font-size: 18rpx;
+}
+
+@mixin menu-card {
+  @include dark-card;
+  position: relative;
+  z-index: 1;
+  margin: 24rpx 28rpx 0;
+  overflow: hidden;
+}
+
+@mixin menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  padding: 28rpx;
+
+  & + & {
+    border-top: 1rpx solid $border-subtle;
+  }
+}
+
+@mixin record-card {
+  @include dark-card;
+  margin-bottom: 16rpx;
+  padding: 24rpx 28rpx;
+}
+
+@mixin list-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 120rpx 24rpx;
+  font-size: 24rpx;
+  color: $text-secondary;
+}
+
+@mixin dark-popup-panel {
+  background: $surface-2;
+  border-top: 1rpx solid $border-subtle;
+  padding: 32rpx 28rpx calc(32rpx + env(safe-area-inset-bottom));
+}
+
+/* 弹窗标题统一居中：各弹窗复用的 .popup-panel__title 类 */
+.popup-panel__title {
+  text-align: center;
+}
+
+@mixin list-page-wrap {
+  @include page-shell;
+  position: relative;
+  overflow: hidden;
+}
+
+@mixin list-page-body {
+  position: relative;
+  z-index: 1;
+  padding: 24rpx 28rpx 0;
+}
+
+@mixin list-page-more {
+  padding: 32rpx 0 16rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: $text-muted;
+}
+
+@mixin status-tag-success {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+  color: $success;
+  background: $success-soft;
+  border: 1rpx solid rgba(130, 184, 153, 0.22);
+}
+
+@mixin danger-hint {
+  font-size: 22rpx;
+  color: #d08080;
+  line-height: 1.6;
+}
+
+@mixin chip-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 16rpx 12rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  color: $text-muted;
+  border: 1rpx solid $border-subtle;
+  background: $surface-3;
+  box-sizing: border-box;
+
+  &--active {
+    color: $gold-light;
+    background: $gold-soft;
+    border-color: rgba(201, 180, 138, 0.28);
+  }
+}
+
+@mixin dark-rich-text {
+  :deep(.mp-html),
+  :deep(rich-text) {
+    color: $text-secondary;
+    font-size: 28rpx;
+    line-height: 1.8;
+  }
+
+  :deep(img) {
+    max-width: 100%;
+    border-radius: 8rpx;
+  }
+
+  :deep(a) {
+    color: $gold;
+  }
+}
+
+@mixin trade-page {
+  @include form-page;
+  padding-bottom: 200rpx;
+}
+
+@mixin trade-status-banner {
+  position: relative;
+  z-index: 1;
+  padding: 40rpx 28rpx 52rpx;
+  text-align: center;
+  background:
+    linear-gradient(155deg, rgba(201, 180, 138, 0.1) 0%, transparent 46%),
+    $surface-1;
+  border-bottom: 1rpx solid $border-subtle;
+}
+
+@mixin trade-status-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  margin-bottom: 12rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  color: $text-highlight;
+}
+
+@mixin trade-status-tip {
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: $text-secondary;
+}
+
+@mixin detail-info-card {
+  @include dark-card;
+  position: relative;
+  z-index: 2;
+  margin: -24rpx 28rpx 0;
+  padding: 28rpx;
+}
+
+@mixin detail-section-title {
+  margin-bottom: 16rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: $text-primary;
+  letter-spacing: 0.04em;
+}
+
+@mixin info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  padding: 10rpx 0;
+  font-size: 26rpx;
+}
+
+@mixin info-row-label {
+  flex-shrink: 0;
+  width: 160rpx;
+  color: $text-muted;
+}
+
+@mixin info-row-value {
+  flex: 1;
+  min-width: 0;
+  color: $text-primary;
+  word-break: break-all;
+}
+
+@mixin info-row-copy {
+  flex-shrink: 0;
+  font-size: 24rpx;
+  color: $gold;
+}
+
+@mixin pay-option-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid $border-subtle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+@mixin option-radio {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  border: 1rpx solid $border-strong;
+  box-sizing: border-box;
+}
+
+@mixin trade-action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 24rpx 28rpx calc(24rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba(3, 3, 4, 0) 0%, $page-bg 24%);
+  border-top: 1rpx solid $border-subtle;
+}
+
+@mixin trade-action-row {
+  display: flex;
+  gap: 16rpx;
+}
+
+@mixin btn-danger-outline {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #d08080;
+  border: 1rpx solid rgba(208, 128, 128, 0.28);
+  background: rgba(208, 128, 128, 0.06);
+}
+
+@mixin btn-warning-outline {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: $gold-light;
+  border: 1rpx solid rgba(201, 180, 138, 0.24);
+  background: $gold-soft;
+}
+
+@mixin btn-gold-flex {
+  @include btn-gold-block;
+  flex: 1;
+}
+
+@mixin btn-disabled-flex {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: $text-muted;
+  border: 1rpx solid $border-subtle;
+  background: $surface-3;
+  opacity: 0.65;
+}
+
+@mixin dark-center-popup {
+  background: $surface-2;
+  border: 1rpx solid $border-subtle;
+  border-radius: 16rpx;
+  padding: 32rpx 28rpx;
+}
+
+@mixin gold-link {
+  font-size: 24rpx;
+  color: $gold;
+  letter-spacing: 0.04em;
+}
+
+@mixin warning-banner-text {
+  font-size: 26rpx;
+  color: #d0a868;
+  line-height: 1.6;
+}
+
+@mixin form-textarea-deep {
+  :deep(.wd-textarea) {
+    background: $surface-3 !important;
+    border: 1rpx solid $border-subtle !important;
+    border-radius: 12rpx !important;
+    padding: 20rpx !important;
+  }
+
+  :deep(.wd-textarea__inner),
+  :deep(textarea) {
+    color: $text-primary !important;
+    font-size: 28rpx !important;
+    min-height: 200rpx;
+  }
+
+  :deep(.wd-textarea__placeholder) {
+    color: $text-muted !important;
+  }
+
+  :deep(.wd-textarea__count) {
+    color: $text-muted !important;
+  }
+}
+
+@mixin filter-tag {
+  @include chip-item;
+  padding: 10rpx 20rpx;
+  font-size: 24rpx;
+}
+
+@mixin picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid $border-subtle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+@mixin dark-empty-deep {
+  :deep(.wd-empty__description) {
+    color: $text-muted !important;
+  }
+}
+
+@mixin dark-popup-deep {
+  :deep(.wd-popup) {
+    background: transparent !important;
+  }
+}
+
+@mixin dark-action-sheet-deep {
+  :deep(.wd-action-sheet) {
+    background: $surface-2 !important;
+  }
+
+  :deep(.wd-action-sheet__header) {
+    color: $text-primary !important;
+    background: $surface-2 !important;
+    border-bottom: 1rpx solid $border-subtle;
+  }
+
+  :deep(.wd-action-sheet__close) {
+    color: $text-muted !important;
+  }
+}
+
+/* 日期时间选择器深色适配：组件默认是浅色底 + wot-ui 品牌蓝按钮，与暗色金色体系冲突 */
+@mixin dark-datetime-picker-deep {
+  /* 弹层本体 */
+  :deep(.wd-datetime-picker__popup) {
+    border-radius: 24rpx 24rpx 0 0;
+    background: $surface-2;
+    box-shadow: inset 0 1rpx 0 $highlight-edge;
+  }
+
+  /* 标题栏 */
+  :deep(.wd-datetime-picker__title) {
+    height: 96rpx;
+    padding: 0 28rpx;
+    border-bottom: 1rpx solid $border-subtle;
+  }
+
+  :deep(.wd-datetime-picker__title-text) {
+    color: $text-highlight;
+    font-size: 30rpx;
+    font-weight: 600;
+    line-height: 96rpx;
+  }
+
+  /* 取消 / 确定：默认 $primary-6 蓝色，改金色 */
+  :deep(.wd-datetime-picker__action) {
+    color: $gold;
+    font-size: 28rpx;
+    line-height: 96rpx;
+  }
+
+  /* 滚动选择器 */
+  :deep(.wd-picker-view) {
+    --wot-picker-view-bg: #{$surface-2};
+    --wot-picker-view-padding: 0 28rpx;
+    --wot-picker-view-mask-start-color: #{rgba(var(--surface-2-rgb), 0.85)};
+    --wot-picker-view-mask-end-color: #{rgba(var(--surface-2-rgb), 0.2)};
+    --wot-picker-view-column-item-color: #{$text-primary};
+    --wot-picker-view-column-item-height: 96rpx;
+    --wot-picker-view-column-item-font-size: 32rpx;
+    --wot-picker-view-roller-bg: #{$surface-3};
+    --wot-picker-view-roller-border-radius: 12rpx;
+  }
+
+  /* 组件自带 padding: var(--window-bottom)，与 safe-area-inset-bottom 叠加会多出留白 */
+  :deep(.wd-datetime-picker__wraper) {
+    padding-bottom: 0;
+  }
+}
+
+@mixin sheet-list-item {
+  padding: 28rpx;
+  border-bottom: 1rpx solid $border-subtle;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+@mixin center-auth-page {
+  @include form-page;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48rpx 28rpx 200rpx;
+}
+
+@mixin auth-logo-wrap {
+  margin-bottom: 48rpx;
+}
+
+@mixin auth-links-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 8rpx 0 40rpx;
+  font-size: 24rpx;
+  color: $text-muted;
+}
+
+@mixin auth-link-text {
+  color: $gold;
+  letter-spacing: 0.04em;
+}
+
+@mixin merchant-hero {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 40rpx 28rpx 56rpx;
+  background:
+    linear-gradient(155deg, rgba(201, 180, 138, 0.1) 0%, transparent 46%),
+    $surface-1;
+  border-bottom: 1rpx solid $border-subtle;
+}

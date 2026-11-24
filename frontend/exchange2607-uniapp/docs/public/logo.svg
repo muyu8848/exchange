@@ -1,0 +1,37 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#121214"/>
+      <stop offset="1" stop-color="#0A0A0C"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="96" y1="128" x2="240" y2="384" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E5D9C0"/>
+      <stop offset="0.55" stop-color="#C9B48A"/>
+      <stop offset="1" stop-color="#A89268"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="272" y1="128" x2="416" y2="384" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8DADF"/>
+      <stop offset="1" stop-color="#9A9DA3"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="256" y1="0" x2="256" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white" stop-opacity="0.07"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect width="512" height="200" rx="112" fill="url(#glow)"/>
+  <rect x="10" y="10" width="492" height="492" rx="102" stroke="rgba(255,255,255,0.09)" stroke-width="2"/>
+  <rect x="22" y="22" width="468" height="468" rx="94" stroke="rgba(201,180,138,0.14)" stroke-width="1"/>
+
+  <g filter="url(#soft)">
+    <path d="M148 156C148 138.983 161.983 125 179 125H214C231.017 125 245 138.983 245 156V228C245 245.017 231.017 259 214 259H188C170.983 259 157 272.983 157 290V356C157 373.017 143.017 387 126 387H112C94.983 387 81 373.017 81 356V156C81 138.983 94.983 125 112 125H148Z" fill="url(#gold)"/>
+    <path d="M364 156C364 138.983 350.017 125 333 125H298C280.983 125 267 138.983 267 156V228C267 245.017 280.983 259 298 259H324C341.017 259 355 272.983 355 290V356C355 373.017 368.983 387 386 387H400C417.017 387 431 373.017 431 356V156C431 138.983 417.017 125 400 125H364Z" fill="url(#silver)"/>
+    <rect x="236" y="198" width="40" height="116" rx="20" fill="#0A0A0C"/>
+    <path d="M228 256H284" stroke="url(#gold)" stroke-width="10" stroke-linecap="round"/>
+    <path d="M244 244L276 256L244 268" stroke="url(#gold)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

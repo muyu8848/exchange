@@ -1,0 +1,72 @@
+:root,
+.theme-dark {
+  --page-bg: #030304;
+  --page-bg-rgb: 3, 3, 4;
+  --surface-1: #0a0a0c;
+  --surface-1-rgb: 10, 10, 12;
+  --surface-2: #101012;
+  --surface-2-rgb: 16, 16, 18;
+  --surface-3: #161618;
+  --surface-3-rgb: 22, 22, 24;
+  --highlight-edge: rgba(255, 255, 255, 0.05);
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.1);
+  --text-primary: #faf8f5;
+  --text-highlight: #ffffff;
+  --text-secondary: #c2beb8;
+  --text-muted: #9a9690;
+  --gold: #c9b48a;
+  --gold-rgb: 201, 180, 138;
+  --gold-light: #e5d9c0;
+  --gold-soft: rgba(201, 180, 138, 0.09);
+  --silver: #c4c6ca;
+  --silver-rgb: 196, 198, 202;
+  --silver-soft: rgba(196, 198, 202, 0.08);
+  --success: #82b899;
+  --success-rgb: 130, 184, 153;
+  --success-soft: rgba(130, 184, 153, 0.1);
+  --danger: #d97a7a;
+  --danger-rgb: 217, 122, 122;
+  --danger-soft: rgba(217, 122, 122, 0.1);
+  --warning: #ffb347;
+  --warning-rgb: 255, 179, 71;
+  --warning-soft: rgba(255, 179, 71, 0.12);
+  --icon-muted: #9a9690;
+  --icon-secondary: #b8b4ae;
+}
+
+.theme-light {
+  --page-bg: #f5f6f8;
+  --page-bg-rgb: 245, 246, 248;
+  --surface-1: #ffffff;
+  --surface-1-rgb: 255, 255, 255;
+  --surface-2: #ffffff;
+  --surface-2-rgb: 255, 255, 255;
+  --surface-3: #eef0f3;
+  --surface-3-rgb: 238, 240, 243;
+  --highlight-edge: rgba(0, 0, 0, 0.03);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.12);
+  --text-primary: #1a1a1c;
+  --text-highlight: #000000;
+  --text-secondary: #5c5c60;
+  --text-muted: #8a8a90;
+  --gold: #a8894f;
+  --gold-rgb: 168, 137, 79;
+  --gold-light: #8a6f3d;
+  --gold-soft: rgba(168, 137, 79, 0.1);
+  --silver: #6c6f75;
+  --silver-rgb: 108, 111, 117;
+  --silver-soft: rgba(108, 111, 117, 0.08);
+  --success: #2f8f5b;
+  --success-rgb: 47, 143, 91;
+  --success-soft: rgba(47, 143, 91, 0.1);
+  --danger: #c94a4a;
+  --danger-rgb: 201, 74, 74;
+  --danger-soft: rgba(201, 74, 74, 0.1);
+  --warning: #b5651d;
+  --warning-rgb: 181, 101, 29;
+  --warning-soft: rgba(181, 101, 29, 0.12);
+  --icon-muted: #8a8a90;
+  --icon-secondary: #5c5c60;
+}

@@ -1,0 +1,32 @@
+/* 全局确认/提示弹窗：跟随主题变量。
+   wd-dialog 默认 teleport 到 body，脱离 App 壳（含 wd-config-provider），
+   这里直接覆盖 .wd-dialog__container，用 CSS 变量取当前主题色，
+   未取到时回落到暗金主题的默认值。 */
+.wd-dialog__container {
+  background: var(--surface-2, #101012) !important;
+  border-radius: 24rpx !important;
+}
+
+.wd-dialog__container .wd-dialog__title {
+  color: var(--text-primary, #ffffff) !important;
+}
+
+.wd-dialog__container .wd-dialog__content-text {
+  color: var(--text-secondary, #c2beb8) !important;
+}
+
+/* 取消按钮：次要文字色 */
+.wd-dialog__container .wd-dialog__actions-btn {
+  color: var(--text-muted, #8a857c) !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* 确认按钮：金色实心，匹配 app 主按钮 btn-gold-block */
+.wd-dialog__container .wd-dialog__actions-btn--confirm {
+  color: var(--page-bg, #0a0a0c) !important;
+  background-color: var(--gold, #c9b48a) !important;
+  border: none !important;
+  border-radius: 12rpx !important;
+  font-weight: 600 !important;
+}
