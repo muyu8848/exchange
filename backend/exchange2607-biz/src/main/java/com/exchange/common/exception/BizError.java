@@ -1,0 +1,22 @@
+package com.exchange.common.exception;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public enum BizError {
+
+	请登录(999, "请登录"),
+
+	参数异常(1000, "参数异常"),
+
+	业务异常(1001, "业务异常"),
+
+	需要谷歌验证(1002, "需要谷歌验证");
+
+	private Integer code;
+
+	private String msg;
+
+}
